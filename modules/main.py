@@ -7,7 +7,6 @@ import requests
 import subprocess
 
 import core as helper
-from utils import progress_bar
 from vars import API_ID, API_HASH, BOT_TOKEN, WEBHOOK, PORT
 from aiohttp import ClientSession
 from pyromod import listen
