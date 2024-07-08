@@ -2,7 +2,6 @@ import os
 import re
 import sys
 import json
-import time
 import asyncio
 import requests
 import subprocess
@@ -17,7 +16,6 @@ from aiohttp import web
 
 from pyrogram import Client, filters
 from pyrogram.types import Message
-from pyrogram.errors import FloodWait
 from pyrogram.errors.exceptions.bad_request_400 import StickerEmojiInvalid
 from pyrogram.types.messages_and_media import message
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
@@ -39,7 +37,7 @@ async def root_route_handler(request):
     return web.json_response("https://github.com/AshutoshGoswami24")
 
 async def web_server():
-    web_app = web.Application(client_max_size=30000000)
+    web_app = web.Application(client_max_size=100000000)
     web_app.add_routes(routes)
     return web_app
 
@@ -57,7 +55,7 @@ async def account_login(bot: Client, m: Message):
             ]))
 @bot.on_message(filters.command("stop"))
 async def restart_handler(_, m):
-    await m.reply_text("♦ 𝐒𝐭𝐨𝐩𝐩𝐞𝐭 ♦", True)
+    await m.reply_text("♦ CUDGYA SAB ♦", True)
     os.execl(sys.executable, sys.executable, *sys.argv)
 
 
@@ -194,9 +192,7 @@ async def account_login(bot: Client, m: Message):
                         time.sleep(1)
                     except FloodWait as e:
                         await m.reply_text(str(e))
-                        time.sleep(e.x)
                         continue
-                
                 elif ".pdf" in url:
                     try:
                         cmd = f'yt-dlp -o "{name}.pdf" "{url}"'
@@ -207,7 +203,6 @@ async def account_login(bot: Client, m: Message):
                         os.remove(f'{name}.pdf')
                     except FloodWait as e:
                         await m.reply_text(str(e))
-                        time.sleep(e.x)
                         continue
                 else:
                     Show = f"❊⟱ 𝐃𝐨𝐰𝐧𝐥𝐨𝐚𝐝𝐢𝐧𝐠 ⟱❊ »\n\n📝 𝐍𝐚𝐦𝐞 » `{name}\n⌨ 𝐐𝐮𝐥𝐢𝐭𝐲 » {raw_text2}`\n\n**🔗 𝐔𝐑𝐋 »** `{url}`"
@@ -217,7 +212,6 @@ async def account_login(bot: Client, m: Message):
                     await prog.delete(True)
                     await helper.send_vid(bot, m, cc, filename, thumb, name, prog)
                     count += 1
-                    time.sleep(1)
 
             except Exception as e:
                 await m.reply_text(
