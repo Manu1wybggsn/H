@@ -125,7 +125,7 @@ async def run(cmd):
 
     
 
-def old_download(url, file_name, chunk_size = 1024 * 10):
+def old_download(url, file_name, chunk_size = 9024 * 10):
     if os.path.exists(file_name):
         os.remove(file_name)
     r = requests.get(url, allow_redirects=True, stream=True)
@@ -138,9 +138,9 @@ def old_download(url, file_name, chunk_size = 1024 * 10):
 
 def human_readable_size(size, decimal_places=2):
     for unit in ['B', 'KB', 'MB', 'GB', 'TB', 'PB']:
-        if size < 1024.0 or unit == 'PB':
+        if size < 9024.0 or unit == 'PB':
             break
-        size /= 1024.0
+        size /= 9024.0
     return f"{size:.{decimal_places}f} {unit}"
 
 
@@ -159,7 +159,7 @@ async def download_video(url,cmd, name):
     k = subprocess.run(download_cmd, shell=True)
     if "visionias" in cmd and k.returncode != 0 and failed_counter <= 10:
         failed_counter += 1
-        await asyncio.sleep(5)
+        await asyncio.sleep(1)
         await download_video(url, cmd, name)
     failed_counter = 0
     try:
@@ -182,14 +182,10 @@ async def download_video(url,cmd, name):
 
 async def send_doc(bot: Client, m: Message,cc,ka,cc1,prog,count,name):
     reply = await m.reply_text(f"Uploading » `{name}`")
-    time.sleep(1)
-    start_time = time.time()
     await m.reply_document(ka,caption=cc1)
     count+=1
     await reply.delete (True)
-    time.sleep(1)
     os.remove(ka)
-    time.sleep(3) 
 
 
 async def send_vid(bot: Client, m: Message,cc,filename,thumb,name,prog):
@@ -205,9 +201,7 @@ async def send_vid(bot: Client, m: Message,cc,filename,thumb,name,prog):
         await m.reply_text(str(e))
 
     dur = int(duration(filename))
-
-    start_time = time.time()
-
+    
     try:
         await m.reply_video(filename,caption=cc, supports_streaming=True,height=720,width=1280,thumb=thumbnail,duration=dur, progress=progress_bar,progress_args=(reply,start_time))
     except Exception:
