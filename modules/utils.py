@@ -1,20 +1,6 @@
 #@SudoR2spr
-import time
 import math
 import os
-from pyrogram.errors import FloodWait
-
-class Timer:
-    def __init__(self, time_between=5):
-        self.start_time = time.time()
-        self.time_between = time_between
-
-    def can_send(self):
-        if time.time() > (self.start_time + self.time_between):
-            self.start_time = time.time()
-            return True
-        return False
-
 
 from datetime import datetime,timedelta
 
@@ -93,7 +79,4 @@ async def progress_bar(current, total, reply, start):
             progress_bar = "◆" * completed_length + "◇" * remaining_length
             
             try:
-                await reply.edit(f'\n `╭─⌯══⟰ 𝐔𝐩𝐥𝐨𝐝𝐢𝐧𝐠 ⟰══⌯──★ \n├⚡ {progress_bar}|﹝{perc}﹞ \n├🚀 Speed » {sp} \n├📟 Processed » {cur}\n├🧲 Size - ETA » {tot} - {eta} \n`├𝐁𝐲 » 𝐖𝐃 𝐙𝐎𝐍𝐄\n╰─══ ✪ @Opleech_WD ✪ ══─★\n') 
-            except FloodWait as e:
-                time.sleep(e.x)
-
+                await reply.edit(f'\n `╭─⌯══⟰ 𝐔𝐩𝐥𝐨𝐝𝐢𝐧𝐠 ⟰══⌯──★ \n├⚡ {progress_bar}|﹝{perc}﹞ \n├🚀 Speed » {sp} \n├📟 Processed » {cur}\n├ Size - ETA » {tot} - {eta} \n`├ 
